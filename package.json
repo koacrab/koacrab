@@ -1,0 +1,63 @@
+{
+  "name": "koacrab",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./core/application.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:koacrab/koacrab.git"
+  },
+  "homepage": "https://github.com/koacrab/koacrab",
+  "keywords": [
+    "koa2",
+    "express",
+    "node web",
+    "web",
+    "crab",
+    "app",
+    "http",
+    "koacrab",
+    "framework",
+    "middleware",
+    "application"
+  ],
+  "author": "haizlin",
+  "license": "MIT",
+  "dependencies": {
+    "bookshelf": "^0.15.1",
+    "h-mysql": "^1.0.7",
+    "html-minifier": "^4.0.0",
+    "knex": "^0.19.1",
+    "koa": "^2.7.0",
+    "koa-better-body": "^3.0.4",
+    "koa-bodyparser": "^4.2.0",
+    "koa-generic-session": "^2.0.1",
+    "koa-logger": "^3.2.0",
+    "koa-nunjucks-2": "^3.0.2",
+    "koa-redis": "^4.0.0",
+    "koa-sslify": "^4.0.3",
+    "koa-static": "^4.0.1",
+    "koa-static-cache": "^5.1.1",
+    "koa-views": "^6.1.0",
+    "koa2-cors": "^2.0.6",
+    "lodash": "^4.17.4",
+    "mongodb": "^3.2.6",
+    "mongoose": "^5.6.7",
+    "mongose": "0.0.2-security",
+    "mysql": "^2.17.1",
+    "nunjucks": "^3.2.1",
+    "raven": "^2.2.1",
+    "request": "^2.83.0",
+    "request-promise": "^4.2.2",
+    "socket.io": "^2.3.0",
+    "ws": "^7.2.3"
+  },
+  "devDependencies": {
+    "boom": "^6.0.0",
+    "cli-color": "^1.2.0",
+    "glob": "^7.1.2"
+  }
+}

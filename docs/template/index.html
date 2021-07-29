@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html>
+ <head>
+  <meta charset="utf-8" />
+  <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+  <title>koacrab高性能Web开源框架</title>
+  <meta name="description" content="一个基于Koa2搭建的高性能Web开源框架（Node.js）">
+  <meta name="keyword" content="koacrab,nodejs,web框架,高性能">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="koacrab" />
+  <meta property="og:url" content="https://www.koacrab.com/index.html" />
+  <meta property="og:site_name" content="koacrab" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="koacrab" />
+  <link rel="alternate" href="https://www.koacrab.com/atom.xml" title="koacrab" type="application/atom+xml" />
+  <link rel="icon" href="/favicon.png" />
+  <link rel="stylesheet" href="css/font-awesome.min.css" />
+  <link rel="stylesheet" href="css/bootstrap.min.css" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/site.css" />
+ </head>
+
+ <body id="main">
+  <div class="home-top">
+    <div class="wrap">
+      <p class="top-left">距离2020年6月6日开源倒计时：<em id="clock"></em></p>
+      <p class="top-right"><a href="#">简体中文</a> | <a href="#">English</a></p>
+    </div>
+  </div>
+
+  <div class="overlay">
+   <img src="./images/logo.png" class="logo" alt="LOGO" title="koacrab" />
+   <!-- <h1>KoaCrab</h1> -->
+   <p class="overlay-p">KoaCrab是一个基于Koa2搭建的高性能Web开源框架（Node.js）</p>
+   <p class="overlay-p install-code"><span><em>$ &nbsp;</em>npm &nbsp;install &nbsp;-g &nbsp;koacrab</span></p>
+   <p class="info">
+     <a href="#Features" class="get-start">开始使用</a>
+     <a href="#" class="get-start">API文档</a>
+   </p>
+   <p class="info">
+     <a href="https://github.com/koacrab/koacrab/wiki" target="_blank">文档</a> |
+     <a href="https://github.com/koacrab/koacrab/issues" target="_blank">issues</a> |
+     <a href="#">例子</a> |
+     <a href="https://github.com/koacrab/koacrab/releases">更新日记</a> |
+     <a href="https://github.com/koacrab/koacrab/releases" target="_blank">当前版本：v1.3.6</a>
+   </p>
+   <p class="info">
+     <a href="https://twitter.com/80285586Wanglin" target="_blank">Twitter</a> |
+     <a href="https://github.com/koacrab/koacrab" target="_blank">GitHub</a> |
+     <a href="https://gitee.com/haizlin-mod/koacrab" target="_blank">码云</a> |
+     <a href="https://coding.net/u/haizlin/p/koacrab/git" target="_blank">码市</a>
+   </p>
+   <p class="info">
+     <iframe src="github.html?user=koacrab&repo=koacrab&type=star&count=true&size=large" class="home-iframe" frameborder="no" border="0"></iframe>
+   </p>
+  </div>
+
+  <!-- NavBar -->
+  <nav class="navbar-default" role="navigation">
+   <div class="navbar-container">
+    <a href="#main"><img class="nav-logo" src="images/logo.png" /></a>
+    <div class="navbar-right">
+     <ul class="nav navbar-nav">
+      <li><a class="nav-a1" href="#Features">功能</a></li>
+      <li><a class="nav-a2" href="#Resources">学习</a></li>
+      <li><a class="nav-a3" href="#tools">工具</a></li>
+     </ul>
+    </div>
+   </div>
+  </nav>
+
+  <!-- feature -->
+  <div class="wrap" id="Features">
+   <section class="feature">
+    <div class="feature-row">
+     <div class="feature-item">
+      <embed src="svg/1-1.svg" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+      <h5>支持Koa、Express</h5>
+      <p>支持koa、Express的全部中间件，同时也支持所有Koa2的API。</p>
+     </div>
+     <div class="feature-item">
+      <embed src="svg/1-2.svg" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+      <h5>支持使用ES6/ES7</h5>
+      <p>支持使用 ES6/ES7 的全部特性来开发项目，目前推荐使用ES6来开发。</p>
+     </div>
+     <div class="feature-item">
+      <embed src="svg/1-3.svg" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+      <h5>错误处理和日志系统</h5>
+      <p>完善的错误处理和日志系统，快速定位问题。</p>
+     </div>
+    </div>
+
+    <div class="feature-row">
+      <div class="feature-item">
+      <embed src="svg/1-4.svg" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+      <h5>自定义中间件/钩子</h5>
+      <p>易扩展，支持自定义中间件(middleware)，丰富功能，同时也支持自定义钩子。</p>
+     </div>
+
+     <div class="feature-item">
+      <embed src="svg/1-5.svg" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+      <h5>高性能模板</h5>
+      <p>默认使用 Nunjucks 作为模版引擎，也可以自定义模板引擎。</p>
+     </div>
+
+     <div class="feature-item">
+      <embed src="svg/1-6.svg" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+      <h5>支持 Socket.io</h5>
+      <p>支持 Socket.io。</p>
+     </div>
+    </div>
+    <div class="feature-row">
+      <div class="feature-item">
+      <embed src="svg/1-7.svg" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+      <h5>数据ORM</h5>
+      <p>修改数据，视图引擎会根据绑定关系自动刷新视图，从此摆脱手工调用 DOM API 的繁琐与可能的遗漏。</p>
+     </div>
+
+     <div class="feature-item">
+      <embed src="svg/1-8.svg" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+      <h5>丰富的路由设计</h5>
+      <p>默认支持多种路由设计，也可使用自定义的路由，同时支持 Restful。</p>
+     </div>
+     <div class="feature-item">
+      <embed src="svg/1-9.svg" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+      <h5>清晰的目录结构</h5>
+      <p>支持多种引用方式：NPM、GitHub、下载、HTTP 与 HTTPS CDN，让开发和线上引用更便利。</p>
+     </div>
+    </div>
+
+    <div class="feature-row">
+     <div class="feature-item">
+      <embed src="svg/1-10.svg" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+      <h5>安全机制</h5>
+      <p>支持HTTPS，完善的安全机制。</p>
+     </div>
+     <div class="feature-item">
+      <embed src="svg/1-11.svg" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+      <h5>MVC结构</h5>
+      <p>MVC结构，清晰的目录组织，让编写代码更方便。</p>
+     </div>
+     <div class="feature-item">
+      <embed src="svg/1-12.svg" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+      <h5>前后端分离</h5>
+      <p>支持前后端分离项目中，用来代理的中间层。</p>
+     </div>
+    </div>
+   </section>
+  </div>
+
+  <!--Resources -->
+  <section id="Resources" class="resource">
+   <div class="resource-title">
+    <h4>学习 KoaCrab</h4>
+    <p>第一次使用时，你需要知道的关于koacrab的一切</p>
+   </div>
+   <div class="resource-row">
+    <div class="resource-block">
+     <a class="resource-item" href="#">
+      <div class="resource-item-top resource-item-top-one">
+       <div style="width:100px;height:100px;display:inline-block;" class="bodymovin">
+        <embed src="svg/2-1.svg" width="100" height="100" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+       </div>
+      </div>
+      <div class="resource-item-bottom">
+       <h5>教程</h5>
+       <p>教程是入门的捷径，请从这里开始了解koacrab。</p>
+      </div> </a>
+    </div>
+    <div class="resource-block">
+     <a class="resource-item" href="#">
+      <div class="resource-item-top resource-item-top-two">
+       <div style="width:100px;height:100px;display:inline-block;" class="bodymovin">
+         <embed src="svg/2-2.svg" width="100" height="100" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+       </div>
+      </div>
+      <div class="resource-item-bottom">
+       <h5>指南</h5>
+       <p>这是我们编写的指南手册，以指导各种应用场景下怎么更好地去使用KoaCrab。</p>
+      </div> </a>
+    </div>
+    <div class="resource-block">
+     <a class="resource-item" href="#">
+      <div class="resource-item-top resource-item-top-three">
+       <div style="width:100px;height:100px;display:inline-block;" class="bodymovin">
+         <embed src="svg/2-3.svg" width="100" height="100" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+       </div>
+      </div>
+      <div class="resource-item-bottom">
+       <h5>示例</h5>
+       <p>这里展示了一些简单例子，以及在实际项目如何使用koacrab。</p>
+      </div> </a>
+    </div>
+    <div class="resource-block">
+     <a class="resource-item" href="#">
+      <div class="resource-item-top resource-item-top-four">
+       <div style="width:100px;height:100px;display:inline-block;" class="bodymovin">
+        <embed src="svg/2-4.svg" width="100" height="100" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+       </div>
+      </div>
+      <div class="resource-item-bottom">
+       <h5>API</h5>
+       <p>当你想不起来的接口时，请查阅这里。</p>
+      </div> </a>
+    </div>
+   </div>
+  </section>
+
+  <!-- tools -->
+  <section class="tools" id="tools">
+   <div class="tools-title">
+    <h4>工具</h4>
+    <p>使用这些工具可以帮助你快速构建应用</p>
+   </div>
+   <div class="tools-row">
+    <div class="tools-block">
+     <a class="tools-item" href="https://github.com/koacrab/koacrab-cli" target="_blank">
+      <div class="tools-item-top tools-item-top-one">
+       <div style="width:100px;height:100px;display:inline-block;" class="bodymovin">
+         <embed src="svg/3-1.svg" width="100" height="100" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+       </div>
+      </div>
+      <div class="tools-item-bottom">
+       <h5>脚手架</h5>
+       <p>koacrab-cli脚手架可以快速搭建网站应用，它内置了一套代码自动更新的机制，文件修改后自动编译立即生效，不用重启 Node.js 服务。</p>
+      </div> </a>
+    </div>
+    <div class="tools-block">
+     <a class="tools-item tools-item-unready" href="https://github.com/koacrab/koacrab-cli" target="_blank">
+      <div class="tools-item-top tools-item-top-two">
+       <div style="width:100px;height:100px;display:inline-block;" class="bodymovin">
+         <embed src="svg/3-2.svg" width="100" height="100" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+       </div>
+      </div>
+      <div class="tools-item-bottom">
+       <h5>日志查看器</h5>
+       <p>日志管理工具，通过日志我们可以了解程序运行详情、错误信息等，以便更好的发现及解决问题。</p>
+      </div> </a>
+    </div>
+    <div class="tools-block">
+     <a class="tools-item" href="https://github.com/koacrab/koacrab-cli" target="_blank">
+      <div class="tools-item-top tools-item-top-three">
+       <div style="width:100px;height:100px;display:inline-block;" class="bodymovin">
+         <embed src="svg/3-3.svg" width="100" height="100" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+       </div>
+      </div>
+      <div class="tools-item-bottom">
+       <h5>测试工具</h5>
+       <p>集成了一整套完成的测试工具，让代码更健壮，运行更稳定。</p>
+      </div> </a>
+    </div>
+    <div class="tools-block">
+     <a class="tools-item" href="https://github.com/koacrab/koacrab-cli" target="_blank">
+      <div class="tools-item-top tools-item-top-four">
+       <div style="width:100px;height:100px;display:inline-block;" class="bodymovin">
+         <embed src="svg/3-4.svg" width="100" height="100" type="image/svg+xml" pluginspage="http://www.adobe.com/svg/viewer/install/" />
+       </div>
+      </div>
+      <div class="tools-item-bottom">
+       <h5>DevTool</h5>
+       <p>基于Chrome扩展的开发者工具，高效开发。</p>
+      </div> </a>
+    </div>
+   </div>
+  </section>
+
+  <!-- footer -->
+  <footer>
+   <div class="copyright">
+    Copyright © <a target="_blank" href="https://blog.haizlin.cn">haizlin</a> 2017-2018 ICP备案证: <a class="copy-icp" target="_blank" href="http://www.beian.miit.gov.cn" rel="nofollow">粤ICP备17162096号-2</a>
+   </div>
+  </footer>
+
+  <!-- JavaScript -->
+  <script src="js/jquery-1.10.2.js"></script>
+  <script src="js/jquery.countdown.min.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/bodymovin.min.js"></script>
+  <!-- StikyMenu -->
+  <script src="js/stickup.min.js"></script>
+  <script type="text/javascript">
+    // 提示升级浏览器
+    (function(w){if(!("WebSocket"in w&&2===w.WebSocket.CLOSING)){var d=document.createElement("div");d.className="browsehappy";d.innerHTML='<div style="width:100%;height:100px;font-size:20px;line-height:100px;text-align:center;background-color:#E90D24;color:#fff;margin-bottom:40px;">\u672c\u7ad9\u652f\u6301\u0049\u0045\u0031\u0030\u4ee5\u4e0a\uff0c\u4f46\u4f60\u7684\u6d4f\u89c8\u5668\u5b9e\u5728<strong>\u592a\u592a\u65e7\u4e86</strong>\uff0c\u592a\u592a\u65e7\u4e86 <a target="_blank" href="http://rj.baidu.com/soft/detail/14744.html?ald" style="background-color:#31b0d5;border-color: #269abc;text-decoration: none;padding: 6px 12px;background-image: none;border: 1px solid transparent;border-radius: 4px;color:#FFEB3B;">\u7acb\u5373\u5347\u7ea7\u5427</a></div>';var f=function(){var s=document.getElementsByTagName("body")[0];if("undefined"==typeof(s)){setTimeout(f,10)}else{s.insertBefore(d,s.firstChild)}};f()}}(window));
+
+       jQuery(function($) {
+            $(document).ready( function() {
+                $('.navbar-default').stickUp();
+            });
+
+            $('#clock').countdown('2020/6/6', function(event) {
+              $(this).html(event.strftime('%D 天 %H:%M:%S'));
+            });
+        });
+
+    </script>
+ </body>
+</html>

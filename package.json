@@ -53,11 +53,11 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "socket.io": "^2.3.0",
-    "ws": "^7.2.3"
+    "ws": "^7.2.3",
+    "cli-color": "^1.2.0"
   },
   "devDependencies": {
     "boom": "^6.0.0",
-    "cli-color": "^1.2.0",
     "glob": "^7.1.2"
   }
 }

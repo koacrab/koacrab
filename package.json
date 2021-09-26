@@ -28,6 +28,8 @@
   "license": "MIT",
   "dependencies": {
     "bookshelf": "^0.15.1",
+    "cli-color": "^1.2.0",
+    "cross-env": "^7.0.3",
     "h-mysql": "^1.0.7",
     "html-minifier": "^4.0.0",
     "knex": "^0.19.1",
@@ -53,8 +55,7 @@
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
     "socket.io": "^2.3.0",
-    "ws": "^7.2.3",
-    "cli-color": "^1.2.0"
+    "ws": "^7.2.3"
   },
   "devDependencies": {
     "boom": "^6.0.0",

@@ -5,7 +5,7 @@
 const fs = require('fs');
 const path = require('path');
 const config = require('../config/index.js');
-const debug = require('debug')('koacrab:services');
+// const debug = require('debug')('koacrab:services');
 
 module.exports = function () {
   return function services(ctx, next) {

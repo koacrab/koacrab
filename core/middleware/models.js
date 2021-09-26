@@ -11,6 +11,8 @@ module.exports = function() {
     // ctx.models = Object.assign(ctx, loadModel());
     ctx.models = loadModel();
 
+    global.koacrab['models'] = ctx.models;
+
     return next();
   }
 };

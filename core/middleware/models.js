@@ -25,8 +25,8 @@ function loadModel() {
   let tempObj = {};
 
   for (let item of Object.keys(pathObj)) {
-    // tempObj[item] = new (require(pathObj[item]));
-    tempObj[item] = require(pathObj[item]);
+    tempObj[item] = new (require(pathObj[item])); // 直接初始化
+    // tempObj[item] = require(pathObj[item]);
     Object.assign(models, tempObj);
   }
 

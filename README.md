@@ -30,6 +30,11 @@
 ## 系统原理
 
 ## API
+* 在控制器可以使用this.services调用services下的方法
+* 在services中可以使用koacrab.models调用models下的方法
+* this.request.fields 获取post数据
+* this.request.query 获取get数据
+* koacrab.conf可以获取配置的数据
 
 ## 工具
 * KoaCrab-Cli脚手架工具

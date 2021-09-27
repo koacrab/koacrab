@@ -42,7 +42,8 @@ function loadServices(ctx) {
   // }
 
   for (let item of Object.keys(pathObj)) {
-      tempObj[item] = require(pathObj[item]);
+      // tempObj[item] = require(pathObj[item]);
+      tempObj[item] = new (require(pathObj[item]));
 
       Object.assign(services, tempObj);
   }

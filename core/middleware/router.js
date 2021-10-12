@@ -31,6 +31,9 @@ module.exports = function() {
       parm: params
     };
 
+    global.koacrab['router'] = ctx.router;
+    global.koacrab['params'] = params || {};
+
     // act的第一个是为_，则是私有方法，不能直接访问
     if(!helps.checkAct(act)){
       debug('不能直接访问私有方法：' + act);

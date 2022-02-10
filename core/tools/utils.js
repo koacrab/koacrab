@@ -21,11 +21,29 @@ const {
   isBuffer
 } = require('core-util-is');
 
-exports.isIP = net.isIP;
-exports.isIPv4 = net.isIPv4;
-exports.isIPv6 = net.isIPv6;
+const isIP = net.isIP;
+const isIPv4 = net.isIPv4;
+const isIPv6 = net.isIPv6;
 
 module.exports = {
+  isArray,
+  isBoolean,
+  isNull,
+  isNullOrUndefined,
+  isNumber,
+  isString,
+  isSymbol,
+  isUndefined,
+  isRegExp,
+  isObject,
+  isDate,
+  isError,
+  isFunction,
+  isPrimitive,
+  isBuffer,
+  isIP,
+  isIPv4,
+  isIPv6,
   // 检测控制器是否为私有
   checkAct: function(name){
     if(name && name.substr(0, 1) === '_'){

@@ -22,6 +22,7 @@ const middleware = require('./middleware/index.js');
 const extend = require('./extend/index.js');
 const color = require('cli-color');
 const statics = require('koa-static');
+const helps = require('./tools/utils');
 
 module.exports = class Application extends Koa {
   constructor() {
@@ -38,6 +39,7 @@ module.exports = class Application extends Koa {
     this.root = process.cwd();
     this.conf = this.loadConf(this.root);
     this.port = this.conf.port || config.port;
+    this.conf.errorEmail = Object.assign({}, config.errorEmail, this.conf.errorEmail);
 
     // 全局配置文件
     koacrab.conf = this.conf;
@@ -69,20 +71,39 @@ module.exports = class Application extends Koa {
 
   errors() {
     // 监控错误日志
+    let _this = this;
+    let time = helps.formatDate('', 'yyyy-MM-dd hh:mm:ss');
+    
     this.koacrab.on('error', function (err, ctx) {
       // debug('捕获error：' + err);
       console.log('捕获error：' + err.stack)
       // 在这里处理异常数据
       ctx.status = 200;
       ctx.body = err.message;
+
+      // 邮件提醒
+      let errorEmail = _this.conf.errorEmail;
+      errorEmail.subject = 'error提醒';
+      errorEmail.html = `
+      时间：${time}<br />
+      异常：${err.stack}<br/>
+      `;
+      helps.sendMail(errorEmail);
     });
 
     // 捕获promise reject错误
     process.on('unhandledRejection', function (reason, promise) {
-      debug('unhandledRejection异常：',reason);
+      // 邮件提醒
+      let errorEmail = _this.conf.errorEmail;
+      errorEmail.subject = 'promise reject提醒';
+      errorEmail.html = `
+      时间：${time}<br />
+      异常：${reason}<br/>
+      `;
+      helps.sendMail(errorEmail);
+      debug('unhandledRejection异常：', reason);
     });
 
-    let _this = this;
     // 捕获未知错误
     process.on('uncaughtException', function (err) {
       debug(err)

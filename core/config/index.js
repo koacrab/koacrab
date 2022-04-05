@@ -43,5 +43,13 @@ module.exports = {
   },
   statics: {
     // defer:true
+  },
+  errorEmail: {
+    smtp: '',
+    from: '',
+    fromName: '',
+    pwd: '',
+    defaultEmail: '',
+    subject: ''
   }
 };

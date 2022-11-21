@@ -73,7 +73,7 @@ module.exports = function () {
 
     let obj = Object.assign(temp, ctx);
 
-    // 前置
+    // 前置单个
     if (ctrsFn.indexOf('_before_' + act) !== -1) {
       await temp['_before_' + act].call(obj);
     }
@@ -82,7 +82,7 @@ module.exports = function () {
     ctx.actFn = temp[act];
     await ctx.actFn.call(obj);
 
-    // 后置
+    // 后置单个
     if (ctrsFn.indexOf('_after_' + act) !== -1) {
       await temp['_after_' + act].call(obj);
     }

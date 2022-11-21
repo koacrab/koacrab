@@ -38,6 +38,10 @@ let children = {};
 
 function readDirSync(dir, type) {
   fs.readdirSync(dir).forEach(function(filename) {
+    let ext = filename.substring(filename.lastIndexOf('.') + 1);
+    if (ext !== 'js') {
+      return;
+    }
     let filePath = dir + "/" + filename;
     let stat = fs.statSync(filePath);
     let tempObj = {};

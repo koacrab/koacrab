@@ -21,6 +21,10 @@ function loadConf(dir) {
   let dirs = dir + '/config/'
 
   fs.readdirSync(dirs).forEach(function(filename) {
+    let ext = filename.substring(filename.lastIndexOf('.') + 1);
+    if (ext !== 'js') {
+      return;
+    }
     let baseName = path.basename(filename, '.config.js');
     let filePath = dirs + "/" + filename;
     let stat = fs.statSync(filePath);

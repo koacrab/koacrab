@@ -42,10 +42,13 @@ function loadServices(ctx) {
   // }
 
   for (let item of Object.keys(pathObj)) {
-      // tempObj[item] = require(pathObj[item]);
+    // tempObj[item] = require(pathObj[item]);
+    try {
       tempObj[item] = new (require(pathObj[item]));
-
       Object.assign(services, tempObj);
+    } catch (err) {
+      console.log(`加载service模块：${item} 错误：`, err)
+    }
   }
 
   return services;
@@ -63,6 +66,10 @@ function readDirSync(dir, type) {
     if (stat && stat.isDirectory()) {
       readDirSync(filePath, filename);
     } else {
+      let ext = filename.substring(filename.lastIndexOf('.' + 1));
+      if (ext !== 'js') {
+        return;
+      }
       let baseName = '';
       if (type) {
         baseName = type + '/' + path.basename(filename, '.js');

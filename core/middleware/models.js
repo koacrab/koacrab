@@ -6,7 +6,7 @@ const fs = require('fs');
 const path = require('path');
 const config = require('../config/index.js');
 
-module.exports = function() {
+module.exports = function () {
   return function models(ctx, next) {
     // ctx.models = Object.assign(ctx, loadModel());
     ctx.models = loadModel();
@@ -25,9 +25,13 @@ function loadModel() {
   let tempObj = {};
 
   for (let item of Object.keys(pathObj)) {
-    tempObj[item] = new (require(pathObj[item])); // 直接初始化
-    // tempObj[item] = require(pathObj[item]);
-    Object.assign(models, tempObj);
+
+    try {
+      tempObj[item] = new (require(pathObj[item])); // 直接初始化
+      Object.assign(models, tempObj);
+    } catch (err) {
+      console.log(`加载model模块：${item} 错误：`, err)
+    }
   }
 
   return models;
@@ -37,7 +41,7 @@ function loadModel() {
 let children = {};
 
 function readDirSync(dir, type) {
-  fs.readdirSync(dir).forEach(function(filename) {
+  fs.readdirSync(dir).forEach(function (filename) {
     let filePath = dir + "/" + filename;
     let stat = fs.statSync(filePath);
     let tempObj = {};
@@ -45,6 +49,10 @@ function readDirSync(dir, type) {
     if (stat && stat.isDirectory()) {
       readDirSync(filePath, filename);
     } else {
+      let ext = filename.substring(filename.lastIndexOf('.' + 1));
+      if (ext !== 'js') {
+        return;
+      }
       let baseName = '';
       if (type) {
         baseName = type + '/' + path.basename(filename, '.js');

@@ -66,7 +66,7 @@ function readDirSync(dir, type) {
     if (stat && stat.isDirectory()) {
       readDirSync(filePath, filename);
     } else {
-      let ext = filename.substring(filename.lastIndexOf('.' + 1));
+      let ext = filename.substring(filename.lastIndexOf('.') + 1);
       if (ext !== 'js') {
         return;
       }

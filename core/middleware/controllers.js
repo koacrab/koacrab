@@ -26,8 +26,12 @@ function loadController() {
 
   for (let item of Object.keys(pathObj)) {
     // tempObj[item] = new (require(pathObj[item]));
-    tempObj[item] = require(pathObj[item]);
-    Object.assign(controllers, tempObj);
+    try {
+      tempObj[item] = require(pathObj[item]);
+      Object.assign(controllers, tempObj);
+    } catch (err) {
+      console.log(`加载controller模块：${item} 错误：`, err)
+    }
   }
 
   return controllers;
@@ -38,10 +42,6 @@ let children = {};
 
 function readDirSync(dir, type) {
   fs.readdirSync(dir).forEach(function (filename) {
-    let ext = filename.substring(filename.lastIndexOf('.') + 1);
-    if (ext !== 'js') {
-      return;
-    }
     let filePath = dir + "/" + filename;
     let stat = fs.statSync(filePath);
     let tempObj = {};
@@ -49,6 +49,11 @@ function readDirSync(dir, type) {
     if (stat && stat.isDirectory()) {
       readDirSync(filePath, filename);
     } else {
+      let ext = filename.substring(filename.lastIndexOf('.') + 1);
+      if (ext !== 'js') {
+        return;
+      }
+
       let baseName = '';
       if (type) {
         baseName = type + '/' + path.basename(filename, '.js');

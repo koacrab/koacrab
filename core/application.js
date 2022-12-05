@@ -73,10 +73,13 @@ module.exports = class Application extends Koa {
     // 监控错误日志
     let _this = this;
     let time = helps.formatDate('', 'yyyy-MM-dd hh:mm:ss');
-    
+
     this.koacrab.on('error', function (err, ctx) {
       // debug('捕获error：' + err);
-      console.log('捕获error：' + err.stack)
+
+      let routerStr = _this.handleRouter();
+      let errStr = _this.handleError(err);
+      console.log('捕获error：' + routerStr + errStr)
       // 在这里处理异常数据
       ctx.status = 200;
       ctx.body = err.message;
@@ -86,7 +89,7 @@ module.exports = class Application extends Koa {
       errorEmail.subject = 'error提醒';
       errorEmail.html = `
       时间：${time}<br />
-      异常：${err.stack}<br/>
+      异常：${routerStr + errStr}<br/>
       `;
       helps.sendMail(errorEmail);
     });
@@ -128,6 +131,36 @@ module.exports = class Application extends Koa {
         ctx.app.emit('error', err, ctx);
       }
     });
+  }
+
+  // 输出error
+  handleError(error){
+    let result = '';
+    for(let i in error){
+      result += `${i}: ${error[i]}<br />`
+    }
+
+    if(error.stack){
+      result += `<br />stack:${error.stack}`
+    }
+
+    return result;
+  }
+
+  // 输出当前路由及参数
+  handleRouter(){
+    let router = koacrab['router'] || {};
+    let params = koacrab['params'] || {};
+    let result = '';
+    result = `router: mod=${router.mod}&ctr=${router.ctr}&act=${router.act}<br />params: `;
+
+    for(let i in params){
+      result += `${i}=${params[i]}&`
+    }
+
+    result += '<br />'
+
+    return result;
   }
 
   // 运行

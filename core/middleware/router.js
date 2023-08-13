@@ -72,6 +72,11 @@ module.exports = function () {
     temp = new ctx.controller[modAndCtr](ctx);
 
     let obj = Object.assign(temp, ctx);
+	
+	// 前置控制器
+    if (ctrsFn.indexOf('_before_') !== -1) {
+      await temp['_before_'].call(obj);
+    }
 
     // 前置单个
     if (ctrsFn.indexOf('_before_' + act) !== -1) {
@@ -85,6 +90,11 @@ module.exports = function () {
     // 后置单个
     if (ctrsFn.indexOf('_after_' + act) !== -1) {
       await temp['_after_' + act].call(obj);
+    }
+	
+	// 后置控制器
+    if (ctrsFn.indexOf('_after_') !== -1) {
+      await temp['_after_'].call(obj);
     }
 
     // } catch (err) {

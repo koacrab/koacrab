@@ -76,20 +76,29 @@ module.exports = class Application extends Koa {
 
     this.koacrab.on('error', function (err, ctx) {
       // debug('捕获error：' + err);
+	  let routerStr = _this.handleRouter();
+	  let errStr = _this.handleError(err);
+	  console.log('捕获error：' + routerStr + errStr)
 
-      let routerStr = _this.handleRouter();
-      let errStr = _this.handleError(err);
-      console.log('捕获error：' + routerStr + errStr)
       // 在这里处理异常数据
       ctx.status = 200;
       ctx.body = err.message;
+	  let originalUrl = ctx.originalUrl || ctx.request.url;
+	  let method = ctx.request.method;
+	  let header = JSON.stringify(ctx.request.header);
+	  let query = ctx.request.query;
+	  let fields = ctx.request.fields;
+	  let params = method === 'GET' ? JSON.stringify(query) : JSON.stringify(fields);
 
       // 邮件提醒
       let errorEmail = _this.conf.errorEmail;
-      errorEmail.subject = 'error提醒';
+      errorEmail.subject = _this.conf.errorEmail.fromName + '(error)';
       errorEmail.html = `
       时间：${time}<br />
-      异常：${routerStr + errStr}<br/>
+	  路由：${originalUrl} | ${method}<br />
+	  头部：${header}<br />
+	  参数：${params}<br />
+      异常：${err.stack}<br/>
       `;
       helps.sendMail(errorEmail);
     });
@@ -98,10 +107,10 @@ module.exports = class Application extends Koa {
     process.on('unhandledRejection', function (reason, promise) {
       // 邮件提醒
       let errorEmail = _this.conf.errorEmail;
-      errorEmail.subject = 'promise reject提醒';
+      errorEmail.subject = _this.conf.errorEmail.fromName + '(promise)';
       errorEmail.html = `
       时间：${time}<br />
-      异常：${reason}<br/>
+      异常：${promise}<br/>${reason}<br/>
       `;
       helps.sendMail(errorEmail);
       debug('unhandledRejection异常：', reason);

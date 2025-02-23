@@ -26,7 +26,7 @@ const helps = require('./tools/utils');
 const aliasPlugin = require('./lib/alias');
 
 module.exports = class Application extends Koa {
-  constructor(options) {
+  constructor(options = {}) {
     super();
 
     global.koacrab = pkg;

@@ -23,12 +23,18 @@ const extend = require('./extend/index.js');
 const color = require('cli-color');
 const statics = require('koa-static');
 const helps = require('./tools/utils');
+const aliasPlugin = require('./lib/alias');
 
 module.exports = class Application extends Koa {
   constructor() {
     super();
 
     global.koacrab = pkg;
+	
+	// 加载路径别名插件
+    if (options.aliases) {
+      aliasPlugin({ aliases: options.aliases });
+    }
 
     this.middlewares = [];
     this.ext = {};

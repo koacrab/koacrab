@@ -14,12 +14,16 @@ function aliasPlugin(options = {}) {
 
   // 覆盖 _resolveFilename 方法
   Module._resolveFilename = function (request, parent) {
-    // 检查是否有别名匹配
-    for (const [alias, aliasPath] of Object.entries(aliases)) {
-      if (request.startsWith(alias)) {
-        // 将别名路径替换为实际路径
-        request = path.join(aliasPath, request.slice(alias.length));
-        break;
+    // 跳过 node_modules 目录
+    if (!request.includes('node_modules')) {
+      // 检查是否有别名匹配
+      for (const [alias, aliasPath] of Object.entries(aliases)) {
+        if (request.startsWith(alias + '/')) {
+          // 将别名路径替换为实际路径
+          const relativePath = request.slice(alias.length + 1);
+          request = path.join(aliasPath, relativePath);
+          break;
+        }
       }
     }
 

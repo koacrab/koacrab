@@ -13,23 +13,55 @@ module.exports = function () {
       return false;
     }
 
-    // 如果链接没有?，则query会是null
-    let params = ctx.request.query;
+    let params = {};
+    let mod = 'index';
+    let ctr = 'index';
+    let act = 'index';
 
-    // 处理如果传递两个相同参数的情况，使用最后一个
-    for (let i in params) {
-      if (helps.isArray(params[i])) {
-        params[i] = params[i][params[i].length - 1];
+    // 判断URL中是否包含?
+    if (ctx.url.includes('?')) {
+      // 使用原有的query参数解析方式
+      params = ctx.request.query;
+
+      // 处理如果传递两个相同参数的情况，使用最后一个
+      for (let i in params) {
+        if (helps.isArray(params[i])) {
+          params[i] = params[i][params[i].length - 1];
+        }
       }
+
+      mod = params.mod || 'index';
+      ctr = params.ctr || 'index';
+      act = params.act || 'index';
+
+      delete params['mod'];
+      delete params['ctr'];
+      delete params['act'];
+    } else {
+      // 使用新的RESTful路由格式
+      let pathParts = ctx.path.split('/').filter(part => part !== '');
+      
+      // 提取模型、控制器和方法
+      if (pathParts.length >= 1) mod = pathParts[0];
+      if (pathParts.length >= 2) ctr = pathParts[1];
+      if (pathParts.length >= 3) act = pathParts[2];
+
+      // 处理剩余的参数键值对，包括空参数值的情况
+      let rawParts = ctx.path.split('/');
+      for (let i = 4; i < rawParts.length; i += 2) {
+        // 如果是参数名
+        if (i % 2 === 0) {
+          let paramName = rawParts[i];
+          if (paramName) {
+            // 下一个位置是参数值，如果不存在或为空则设为空字符串
+            let paramValue = (i + 1 < rawParts.length && rawParts[i + 1]) ? rawParts[i + 1] : '';
+            params[paramName] = paramValue;
+          }
+        }
+      }
+
+      ctx.request.query = params;
     }
-
-    let mod = params.mod || 'index';
-    let ctr = params.ctr || 'index';
-    let act = params.act || 'index';
-
-    delete (params['mod']);
-    delete (params['ctr']);
-    delete (params['act']);
 
     ctx.router = {
       mod: mod,

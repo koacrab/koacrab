@@ -10,11 +10,9 @@
 // http://patorjk.com/software/taag/#p=testall&c=c&f=Graffiti&t=KoaCrab
 const Koa = require('koa');
 const path = require('path');
-const http = require('http');
 const fs = require('fs');
 const debug = require('debug')('koacrab');
 const convert = require('koa-convert');
-const lodash = require('lodash');
 const config = require('./config/index.js');
 const pkg = require('../package.json');
 // const log = require('./log.js');

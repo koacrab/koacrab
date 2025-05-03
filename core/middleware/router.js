@@ -41,6 +41,11 @@ module.exports = function () {
       // 使用新的RESTful路由格式
       let pathParts = ctx.path.split('/').filter(part => part !== '');
       
+      // 过滤掉URL中的api标识符（如api2、api4等）
+      if (pathParts.length > 0 && pathParts[0].toLowerCase().startsWith('api')) {
+        pathParts.shift();
+      }
+      
       // 提取模型、控制器和方法
       if (pathParts.length >= 1) mod = pathParts[0];
       if (pathParts.length >= 2) ctr = pathParts[1];

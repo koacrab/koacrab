@@ -32,7 +32,7 @@
     "cross-env": "^7.0.3",
     "h-mysql": "^1.0.7",
     "html-minifier": "^4.0.0",
-    "knex": "^0.19.1",
+    "knex": "^2.4.0",
     "koa": "^2.7.0",
     "koa-better-body": "^3.0.4",
     "koa-bodyparser": "^4.2.0",

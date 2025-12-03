@@ -27,6 +27,7 @@
   "author": "haizlin",
   "license": "MIT",
   "dependencies": {
+    "async_hooks": "^1.0.0",
     "bookshelf": "^0.15.1",
     "cli-color": "^1.2.0",
     "cross-env": "^7.0.3",

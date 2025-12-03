@@ -1,4 +1,8 @@
 module.exports = {
+  // 异步上下文
+  'context': {
+    status: true,
+  },
   //favicon设置
   'favicon': {
     status: true,

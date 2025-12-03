@@ -12,7 +12,6 @@ module.exports = function () {
     if (ctx.url === '/favicon.ico') {
       return false;
     }
-
     let params = {};
     let mod = 'index';
     let ctr = 'index';
@@ -39,7 +38,7 @@ module.exports = function () {
       delete params['act'];
     } else {
       // 使用新的RESTful路由格式
-      let pathParts = ctx.path.split('/').filter(part => part !== '');
+      let pathParts = ctx.path.split('/').filter(part => part !== '') || [];
       
       // 过滤掉URL中的api标识符（如api2、api4等）
       if (pathParts.length > 0 && pathParts[0].toLowerCase().startsWith('api')) {
@@ -47,19 +46,18 @@ module.exports = function () {
       }
       
       // 提取模型、控制器和方法
-      if (pathParts.length >= 1) mod = pathParts[0];
-      if (pathParts.length >= 2) ctr = pathParts[1];
-      if (pathParts.length >= 3) act = pathParts[2];
+      mod = pathParts.shift() || 'index';
+      ctr = pathParts.shift() || 'index';
+      act = pathParts.shift() || 'index';
 
       // 处理剩余的参数键值对，包括空参数值的情况
-      let rawParts = ctx.path.split('/');
-      for (let i = 4; i < rawParts.length; i += 2) {
+      for (let i = 0; i < pathParts.length; i += 2) {
         // 如果是参数名
         if (i % 2 === 0) {
-          let paramName = rawParts[i];
+          let paramName = pathParts[i];
           if (paramName) {
             // 下一个位置是参数值，如果不存在或为空则设为空字符串
-            let paramValue = (i + 1 < rawParts.length && rawParts[i + 1]) ? rawParts[i + 1] : '';
+            let paramValue = (i + 1 < pathParts.length && pathParts[i + 1]) ? pathParts[i + 1] : '';
             params[paramName] = paramValue;
           }
         }
@@ -68,6 +66,22 @@ module.exports = function () {
       ctx.request.query = params;
     }
 
+    // 增强的入口日志
+    let paramsInfo = {};
+    if(ctx.request.fields){
+      let fields = ctx.request.fields || {}; 
+      paramsInfo = Object.assign(params, fields);
+    }
+    let startLog = {
+        type: '[Req Start]',
+        traceId: ctx.traceId,
+        '@timestamp': new Date().toISOString(), // 使用 ISO 8601 格式的 UTC 时间
+        method: ctx.method,
+        url: ctx.originalUrl, // 使用 ctx.path，不包含查询字符串
+        params: paramsInfo
+      };
+      console.log(JSON.stringify(startLog));
+    
     ctx.router = {
       mod: mod,
       ctr: ctr,
@@ -86,7 +100,6 @@ module.exports = function () {
     }
 
     let modAndCtr = mod + '/' + ctr;
-
     let ctrs = Object.keys(ctx.controller);
 
     if (ctrs.indexOf(modAndCtr) === -1) {
@@ -102,6 +115,9 @@ module.exports = function () {
       ctx.body = act + '方法不存在，请检查';
       return;
     }
+
+    const startTime = process.hrtime.bigint(); // 使用高精度计时器
+    const startHeap = process.memoryUsage().heapUsed;
 
     // try {
     // 实例化控制器
@@ -133,6 +149,23 @@ module.exports = function () {
     if (ctrsFn.indexOf('_after_') !== -1) {
       await temp['_after_'].call(obj);
     }
+
+    const endTime = process.hrtime.bigint();
+    const endHeap = process.memoryUsage().heapUsed;
+    const durationMs = Number(endTime - startTime) / 1_000_000; // 转换为毫秒
+    const heapChange = endHeap - startHeap;
+
+    // 打印包含追踪ID的控制器执行耗时日志
+    let endLog = {
+        type: '[Req End]',
+        traceId: ctx.traceId,
+        '@timestamp': new Date().toISOString(), // 使用 ISO 8601 格式的 UTC 时间
+        duration: durationMs.toFixed(2),
+        heapChange: (heapChange / 1024).toFixed(2),
+        dbQueries: ctx.perfStats.dbQueries,
+        dbDuration: ctx.perfStats.dbDuration.toFixed(2),
+      };
+      console.log(JSON.stringify(endLog));
 
     // } catch (err) {
     // debug(err);

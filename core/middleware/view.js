@@ -36,6 +36,10 @@ module.exports = function() {
       return renderExcel(ctx, data, name);
     };
 
+    ctx.renderCsv = function(csvUrl, name) {
+      return renderCsv(ctx, csvUrl, name);
+    };
+
     ctx.renderSVG = function(data, name) {
       return renderSVG(ctx, data, name);
     };
@@ -136,6 +140,23 @@ function renderExcel(ctx, data, name = 'test') {
   // ctx.set("Content-Disposition", "attachment; filename*=" + `${name}.xlsx`);
 
   return ctx.body = data;
+}
+
+function renderCsv(ctx, csvUrl, name = 'export') {
+  let userAgent = (ctx.headers['user-agent']||'').toLowerCase();
+
+  if(userAgent.indexOf('msie') >= 0 || userAgent.indexOf('chrome') >= 0) {
+    ctx.set('Content-Disposition', 'attachment; filename=' + encodeURIComponent(name) + '.csv');
+  } else if(userAgent.indexOf('firefox') >= 0) {
+    ctx.set('Content-Disposition', 'attachment; filename*="utf8\'\'' + encodeURIComponent(name)+'\'"' + '.csv');
+  } else {
+    /* safari等其他非主流浏览器只能自求多福了 */
+    ctx.set('Content-Disposition', 'attachment; filename=' + new Buffer(name).toString('binary') + '.csv');
+  }
+
+  ctx.set('Content-Type', 'text/csv;charset=utf-8');
+  // 重定向到CSV文件URL进行下载
+  ctx.redirect(csvUrl);
 }
 
 function renderWx(ctx, data) {

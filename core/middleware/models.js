@@ -30,7 +30,9 @@ function loadModel() {
       tempObj[item] = new (require(pathObj[item])); // 直接初始化
       Object.assign(models, tempObj);
     } catch (err) {
-      console.log(`加载model模块：${item} 错误：`, err)
+      console.log(`加载model模块失败：${item}`);
+      console.log('错误信息:', err.message || err);
+      console.log('堆栈:', err.stack);
     }
   }
 

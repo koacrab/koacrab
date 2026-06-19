@@ -167,11 +167,16 @@ module.exports = function () {
       };
       console.log(JSON.stringify(endLog));
 
-    // } catch (err) {
-    // debug(err);
-    // console.log('路由异常……')
-    // ctx.body = '出现异常！请检测！' + err;
-    // }
+    try {
+      let logData = {
+        traceId: ctx.traceId,
+        mod: mod, ctr: ctr, act: act,
+        startTime: startTime,
+        endTime: endTime,
+        durationMs: durationMs,
+      };
+      ctx.app.emit('afterRoute', ctx, logData);
+    } catch(e) {}
 
     await next();
   }

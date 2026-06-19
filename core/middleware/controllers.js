@@ -30,7 +30,9 @@ function loadController() {
       tempObj[item] = require(pathObj[item]);
       Object.assign(controllers, tempObj);
     } catch (err) {
-      console.log(`加载controller模块：${item} 错误：`, err)
+      console.log(`加载controller模块失败：${item}`);
+      console.log('错误信息:', err.message || err);
+      console.log('堆栈:', err.stack);
     }
   }
 

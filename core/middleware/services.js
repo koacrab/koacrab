@@ -47,7 +47,9 @@ function loadServices(ctx) {
       tempObj[item] = new (require(pathObj[item]));
       Object.assign(services, tempObj);
     } catch (err) {
-      console.log(`加载service模块：${item} 错误：`, err)
+      console.log(`加载service模块失败：${item}`);
+      console.log('错误信息:', err.message || err);
+      console.log('堆栈:', err.stack);
     }
   }
 
